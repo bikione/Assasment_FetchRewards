@@ -24,6 +24,7 @@ object2.add("MILLER COORS", 10000);
 
 const getBalance = async (req, res) => {
   try {
+    // Return Customer's name and Total Point
     res.status(200).json(object2);
   } catch (err) {
     res.status(500).json(err.message);
@@ -40,6 +41,7 @@ const addToQue = async (req, res) => {
     let comparePoint = 0;
     var currentCustomer = {};
     for (let i in object2.customers) {
+      // Check if the user is exist
       if (object2.customers[i].payer == req.body.payer) {
         comparePoint = object2.customers[i].points;
         currentCustomer = object2.customers[i];
@@ -47,14 +49,16 @@ const addToQue = async (req, res) => {
         break;
       }
     }
+    // Checking if customer new
     if (isNew) {
       if (req.body.points < 1) {
+        // New Customer's point must be above 0
         return res.status(400).json({ msg: "Point must be above 0" });
       }
       object2.add(req.body.payer, req.body.points);
     } else {
-      console.log("Hello");
       if (comparePoint + req.body.points < 0) {
+        // Checking if Oldest customer's becaming negative
         return res
           .status(400)
           .json({ msg: "Customer can not has below 0 point" });
@@ -75,16 +79,18 @@ const addToQue = async (req, res) => {
 const spentPoint = async (req, res) => {
   try {
     const map2 = new Map();
+    // set HashMap of user to find faster
     for (let i in object2.customers) {
       map2.set(object2.customers[i].payer, 0);
     }
     var totalSpent = req.body.points;
-    console.log("Tota", object1.total);
     if (object1.total < totalSpent) {
+      // Checking if the input point is higher than total points we have
       return res.status(400).json({
         message: "a Spend points is higher than a total point of all users",
       });
     }
+    // Dequeue 1 by 1 untill totalSpent reaches 0
     while (true) {
       if (totalSpent == 0) break;
       const userPoint = map2.get(object1.items[0].payer);
@@ -102,10 +108,12 @@ const spentPoint = async (req, res) => {
         object1.dequeue();
       }
     }
-    var spendObj = [];
+
+    var spendObj = []; // Creating return object
     map2.forEach((key, value) => {
       spendObj.push({ payer: value, points: key });
     });
+    // Decreasing Points from Customers information object
     for (let j in object2.customers) {
       object2.customers[j].points += map2.get(object2.customers[j].payer);
     }
