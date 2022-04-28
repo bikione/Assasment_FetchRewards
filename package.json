@@ -1,0 +1,25 @@
+{
+  "name": "fetchreward-assasment",
+  "version": "1.0.0",
+  "description": "FetchReward-Assasment By Bilguut",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Bilguut",
+    "NodeJS",
+    "ExpressJS",
+    "FetchReward"
+  ],
+  "author": "Bilguut Vyachyeslav",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.7",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-validator": "^6.14.0"
+  }
+}
