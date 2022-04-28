@@ -34,4 +34,4 @@ Add new customer point's history or add new customer : HTTP POST localhost:8080/
 Before start application install the modules using `npm install`
 To start application use rather `npm start` or `npm run dev`.
 
-Thank you Looking forward to hearing from you guys
+Thank you Looking forward to hearing from you guys.
